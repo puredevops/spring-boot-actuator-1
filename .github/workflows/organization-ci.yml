@@ -10,12 +10,6 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-#     env:
-      
-#       GITHUB_TOKEN: ${{ secrets.TOKEN }}
-#       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} 
       
     steps:
     - uses: actions/checkout@v2 
@@ -49,20 +43,20 @@ jobs:
       run: ./gradlew build sonarqube --info
 
     - name: Trigger next workflow
-        if: success()
-        uses: peter-evans/repository-dispatch@v1
-        with:
-          token: ${{ secrets.TOKEN }}
-          repository: puredevops/spring-boot-actuator
-          event-type: windows
-          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
+      if: success()
+      uses: peter-evans/repository-dispatch@v1
+      with:
+        token: ${{ secrets.TOKEN }}
+        repository: puredevops/spring-boot-actuator
+        event-type: windows
+        client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
           
     - name: Set final status
-        if: failure()
-        uses: peter-evans/repository-dispatch@v1
-        with:
-          token: ${{ secrets.TOKEN }}
-          repository: puredevops/spring-boot-actuator
-          event-type: final
-          client-payload: '{"success": false}'
+      if: failure()
+      uses: peter-evans/repository-dispatch@v1
+      with:
+        token: ${{ secrets.TOKEN }}
+        repository: puredevops/spring-boot-actuator
+        event-type: final
+        client-payload: '{"success": false}'
 
