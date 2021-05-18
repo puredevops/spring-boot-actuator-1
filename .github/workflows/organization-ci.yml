@@ -22,7 +22,11 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Build with Gradle
-      run: ./gradlew build
+      run: ./gradlew build  
+    - name: Download Artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: my-artifact
       
     - name: Cache SonarCloud packages
       uses: actions/cache@v1
@@ -42,10 +46,6 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: ./gradlew build sonarqube --info
       
-    - name: Download Artifact
-      uses: actions/download-artifact@v2
-      with:
-        name: my-artifact
 
 #     - name: Trigger next workflow
 #       if: success()
