@@ -23,6 +23,12 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build  
+      
+      
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: my-artifact
     - name: Download Artifact
       uses: actions/download-artifact@v2
       with:
