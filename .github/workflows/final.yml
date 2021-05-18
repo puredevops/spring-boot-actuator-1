@@ -1,0 +1,16 @@
+name: final-check
+
+on:
+  repository_dispatch:
+    types: [final]
+    
+jobs:
+  final-check:
+  
+    runs-on:  macOS-latest
+
+    steps:
+    
+      - name: Convey final status of all workflows
+        if: ${{ !github.event.client_payload.success }}
+        run: exit 1
