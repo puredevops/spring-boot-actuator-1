@@ -42,21 +42,24 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: ./gradlew build sonarqube --info
 
-    - name: Trigger next workflow
-      if: success()
-      uses: peter-evans/repository-dispatch@v1
-      with:
-        token: ${{ secrets.TOKEN }}
-        repository: puredevops/spring-boot-actuator
-        event-type: windows
-        client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
+#     - name: Trigger next workflow
+#       if: success()
+#       uses: peter-evans/repository-dispatch@v1
+#       with:
+#         token: ${{ secrets.TOKEN }}
+#         repository: puredevops/spring-boot-actuator
+#         event-type: windows
+#         client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
           
-    - name: Set final status
-      if: failure()
-      uses: peter-evans/repository-dispatch@v1
+#     - name: Set final status
+#       if: failure()
+#       uses: peter-evans/repository-dispatch@v1
+#       with:
+#         token: ${{ secrets.TOKEN }}
+#         repository: puredevops/spring-boot-actuator
+#         event-type: final
+#         client-payload: '{"success": false}'
+    - uses: actions/download-artifact@v2
       with:
-        token: ${{ secrets.TOKEN }}
-        repository: puredevops/spring-boot-actuator
-        event-type: final
-        client-payload: '{"success": false}'
+        name: my-artifact
 
