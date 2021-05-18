@@ -41,6 +41,11 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: ./gradlew build sonarqube --info
+      
+    - name: Download Artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: my-artifact
 
 #     - name: Trigger next workflow
 #       if: success()
@@ -59,7 +64,4 @@ jobs:
 #         repository: puredevops/spring-boot-actuator
 #         event-type: final
 #         client-payload: '{"success": false}'
-    - uses: actions/download-artifact@v2
-      with:
-        name: my-artifact
 
