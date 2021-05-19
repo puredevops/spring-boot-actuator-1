@@ -95,7 +95,7 @@ jobs:
       uses: peter-evans/repository-dispatch@v1
       with:
         token: ${{ secrets.TOKEN }}
-        repository: puredevops/spring-boot-actuator
+        repository: puredevops/spring-boot-actuator-1
         event-type: windows
         client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
           
@@ -104,6 +104,6 @@ jobs:
       uses: peter-evans/repository-dispatch@v1
       with:
         token: ${{ secrets.TOKEN }}
-        repository: puredevops/spring-boot-actuator
+        repository: puredevops/spring-boot-actuator-1
         event-type: final
         client-payload: '{"success": false}'
